@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import Film from "./Filmler/Film";
 import KaydedilenlerListesi from "./Filmler/KaydedilenlerListesi";
-
+import FilmListesi from "./Filmler/FilmListesi";
 export default function App() {
   const [saved, setSaved] = useState([]);
   const [movieList, setMovieList] = useState([]);
@@ -38,17 +39,19 @@ export default function App() {
   };
 
   return (
-    <div>
-      <Film id={1} />
-      <KaydedilenlerListesi
-        list={saved}
-        //   [
-        //     /* Burası esnek */
-        //   ]
-        // }
-      />
-
-      <div>Routerlar buraya</div>
-    </div>
+    <Router>
+      <div>
+        <KaydedilenlerListesi list={[saved]} />
+        <Switch>
+          <Route path="/" exact>
+            <FilmListesi movies={movieList} />{" "}
+          </Route>
+          <Route path="/filmler/:id">
+            {" "}
+            <Film id={movieList.id} />{" "}
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom/";
 
 export default function Film(props) {
   const [movie, setMovie] = useState();
-
-  const id = 1;
-  // URL'den alınan :id parametresini bu değişkene aktarın
+  const asd = useParams();
+  const id = asd.id;
 
   useEffect(() => {
     axios
@@ -16,7 +16,7 @@ export default function Film(props) {
       .catch((error) => {
         console.error(error);
       });
-  }, [movie]);
+  }, [id]);
 
   // Yalnızca esnek görevlere geçtiğinizde burdaki yorum etiketini kaldırın
   // const filmiKaydet = evt => { }
