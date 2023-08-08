@@ -27,14 +27,13 @@ export default function App() {
   console.log(saved);
 
   const KaydedilenlerListesineEkle = (id) => {
-    const kaydedilmis = saved.find((film) => film.id === id);
-    if (kaydedilmis) {
-      console.log("Bu filmi zaten kaydettiniz!");
+    console.log("id", id);
+    if (saved.find((movie) => movie.id == id)) {
+      console.log("Bu film zaten kaydedilmiş");
+      return;
     } else {
-      const secili = movieList.find((film) => film.id === id);
-      if (secili) {
-        setSaved([...saved, secili]);
-      }
+      const movietoAdd = movieList.find((movie) => movie.id == id);
+      setSaved([...saved, movietoAdd]);
     }
   };
 
@@ -44,11 +43,10 @@ export default function App() {
         <KaydedilenlerListesi list={[saved]} />
         <Switch>
           <Route path="/" exact>
-            <FilmListesi movies={movieList} />{" "}
+            <FilmListesi movies={movieList} />
           </Route>
           <Route path="/filmler/:id">
-            {" "}
-            <Film id={movieList.id} />{" "}
+            <Film kayitEkle={KaydedilenlerListesineEkle} />
           </Route>
         </Switch>
       </div>
